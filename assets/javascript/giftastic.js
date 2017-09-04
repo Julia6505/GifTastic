@@ -41,7 +41,6 @@ function toggle() {
         $(this).data("state", "still");
         
     }
- 
 
     };
 
