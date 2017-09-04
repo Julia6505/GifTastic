@@ -1,7 +1,5 @@
+
 var topics = ["New York", "Orlando", "Boston", "San Francisco", "Chicago", "Santa Fe", "Detroit", "Miami", "Dallas"];
-
-
-  
 
 function displayGifs() {
   var city = $(this).attr("data-buttons");
@@ -16,19 +14,19 @@ function displayGifs() {
         var rating = response.data[i].rating;
         var ratingP = $("<p>").text("Rating: " + rating);
         // console.log(rating);
-        var gifImageUrl = response.data[i].embed_url;
-        // var gifImageUrl = response.data[i].bitly_gif_url;
+        // var gifImageUrl = response.data[i].embed_url;
+        var gifImageUrl = response.data[i].images.fixed_height.url;
         var gifImage = $("<img>").attr("src", gifImageUrl);
-        console.log(gifImageUrl);
+        gifDiv.append(ratingP);
+        gifDiv.append(gifImage);
+        $("#holdGiphys").prepend(gifDiv);
+        // console.log(gifImageUrl);
     };
-        
     });
 };
 
-
 function displayButtons() {
     $("#view-buttons").empty();
-
     for(var i = 0; i < topics.length; i++) {
     var addButton = $("<button>");
     addButton.addClass("cities");
@@ -49,7 +47,10 @@ $("#submit-city").on("click", function(event){
 });
 
 displayButtons();   
-console.log(topics);
+
+$(document).on("click", ".cities", displayGifs);
+
+
 
 
 
