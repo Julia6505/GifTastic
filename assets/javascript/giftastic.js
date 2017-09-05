@@ -14,12 +14,13 @@ function displayGifs() {
         var rating = response.data[i].rating;
         var ratingP = $("<p>").text("Rating: " + rating);
         // console.log(rating);
-        var gifImageUrlStill = response.data[i].images.fixed_height_still.url;
-        var gifImageStill = $("<img class='gif' data-state='still'>").attr("src", gifImageUrlStill)
-        var gifImageUrlAnimated = response.data[i].images.original.url;
-        var gifImageAnimated = $("<img class='gif' data-state='animated'>").attr("src", gifImageUrlAnimated);
+        var gifImageUrlStill = response.data[i].images.fixed_width_still.url;
+        var gifImageUrlAnimated = response.data[i].images.fixed_width.url;        
+        var gifImage = $("<img class='gif' data-state='still'>").attr({"src": gifImageUrlStill, "data-still": gifImageUrlStill, "data-animate": gifImageUrlAnimated})
+
         gifDiv.append(ratingP);
-        gifDiv.append(gifImageStill);
+        gifDiv.append(gifImage);
+        // gifDiv.append(gifImageAnimated);
         $("#holdGiphys").prepend(gifDiv);
         // console.log(gifImageUrl);
     };
@@ -28,20 +29,19 @@ function displayGifs() {
 
 function toggle() {
     var currentState = ($(this).data("state"));
+    console.log(currentState);
     
-    if(currentState === "still") {
+    if (currentState === "still") {
         console.log('animate');
-        $(this).attr("src", $(this).data('animated'));
+        $(this).attr("src", $(this).data('animate'));
         $(this).data("state", "moving");
        
-     
-    }else {
+    } else {
         console.log('stop it');
         $(this).attr("src", $(this).data('still'));
         $(this).data("state", "still");
         
     }
-
     };
 
 function displayButtons() {

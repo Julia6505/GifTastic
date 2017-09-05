@@ -1,0 +1,23 @@
+#h1-title-text {
+    font-family: 'Iceland', cursive;    
+    text-align: center;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.gif {
+    border: solid, black, 1px;
+    margin-left: 10px;
+    /* display: inline-block; */
+}
+
+.gif-div {
+    display: inline-block; 
+    float: left;
+}
+
+/* .main-container-rules {
+display: inline-block;
+} */
