@@ -1,5 +1,5 @@
 
-var topics = ["New York", "Orlando", "Boston", "San Francisco", "Chicago", "Santa Fe", "Detroit", "Miami", "Dallas"];
+var topics = ["New York", "Orlando", "Boston", "San Francisco", "Chicago", "Santa Fe", "Detroit", "Miami", "Dallas", "Seattle", "Memphis", "Las Vegas", "Los Angeles"];
 
 function displayGifs() {
   var city = $(this).attr("data-buttons");
@@ -12,12 +12,11 @@ function displayGifs() {
         var gifDiv = $("<div class='gif-div'>");
         for(var i = 0; i < response.data.length; i++) {
         var rating = response.data[i].rating;
-        var ratingP = $("<p>").text("Rating: " + rating);
+        var ratingP = $("<p id='rating'>").text("Rating: " + rating);
         // console.log(rating);
         var gifImageUrlStill = response.data[i].images.fixed_width_still.url;
         var gifImageUrlAnimated = response.data[i].images.fixed_width.url;        
         var gifImage = $("<img class='gif' data-state='still'>").attr({"src": gifImageUrlStill, "data-still": gifImageUrlStill, "data-animate": gifImageUrlAnimated})
-
         gifDiv.append(ratingP);
         gifDiv.append(gifImage);
         // gifDiv.append(gifImageAnimated);
