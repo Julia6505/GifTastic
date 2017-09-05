@@ -2,7 +2,9 @@
 var topics = ["New York", "Orlando", "Boston", "San Francisco", "Chicago", "Santa Fe", "Detroit", "Miami", "Dallas", "Seattle", "Memphis", "Las Vegas", "Los Angeles"];
 
 function displayGifs() {
+    //variable that grabs search info from form
   var city = $(this).attr("data-buttons");
+  //ajax call to giphy api to grab 10 searched images
   var queryUrl = "https://api.giphy.com/v1/gifs/search?q=" + city + "&api_key=17b05d17dc0d4bcdbf4b1156a3cbded9&limit=10";
     $.ajax({
         url: queryUrl,
@@ -15,17 +17,16 @@ function displayGifs() {
         var ratingP = $("<p id='rating'>").text("Rating: " + rating);
         // console.log(rating);
         var gifImageUrlStill = response.data[i].images.fixed_width_still.url;
-        var gifImageUrlAnimated = response.data[i].images.fixed_width.url;        
+        var gifImageUrlAnimated = response.data[i].images.fixed_width.url;      
+        //animated and still versions of img necessary to pause and start gifs  
         var gifImage = $("<img class='gif' data-state='still'>").attr({"src": gifImageUrlStill, "data-still": gifImageUrlStill, "data-animate": gifImageUrlAnimated})
         gifDiv.append(ratingP);
         gifDiv.append(gifImage);
-        // gifDiv.append(gifImageAnimated);
         $("#holdGiphys").prepend(gifDiv);
-        // console.log(gifImageUrl);
     };
     });
 };
-
+//function to pause and start gifs
 function toggle() {
     var currentState = ($(this).data("state"));
     console.log(currentState);
@@ -44,6 +45,7 @@ function toggle() {
     };
 
 function displayButtons() {
+    //empty buttons so same button doesn't repeat itself
     $("#view-buttons").empty();
     for(var i = 0; i < topics.length; i++) {
     var addButton = $("<button>");
@@ -56,6 +58,7 @@ function displayButtons() {
 };
 
 $("#submit-city").on("click", function(event){
+    //prevent page from reloading when submit button clicked
     event.preventDefault();
     var formInputValue = $("#city-input").val().trim();
     topics.push(formInputValue);
@@ -64,9 +67,11 @@ $("#submit-city").on("click", function(event){
     console.log(topics);
 });
 
+//add new button when add button is clicked
 displayButtons();   
-
+//show gifs when city buttons are clicked
 $(document).on("click", ".cities", displayGifs);
+//pause/start gifs when clicked individually 
 $(document).on("click", ".gif", toggle);
 
 
